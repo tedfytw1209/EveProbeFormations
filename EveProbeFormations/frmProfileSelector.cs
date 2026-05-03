@@ -11,6 +11,11 @@ namespace EveProbeFormations
 
         private void frmProfileSelector_Load(object sender, EventArgs e)
         {
+            if (!Helper.RunningInUnlockedMode)
+            {
+                MessageBox.Show("This software is provided \"as is\", without warranties of any kind, disclaiming liability for damages, including negligence, resulting from its use.");
+            }
+
             pathToEveSettingsFolder = Helper.TryToFindPathToLocalEve() ?? string.Empty;
             if (!string.IsNullOrEmpty(pathToEveSettingsFolder))
             {

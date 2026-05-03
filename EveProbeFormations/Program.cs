@@ -12,7 +12,15 @@ namespace EveProbeFormations
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Helper.RunningInUnlockedMode = true;
+            // Start up in unlocked mode if the file exists called "I accept all risks of running this tool unlocked"
+            Helper.RunningInUnlockedMode = File.Exists("I accept all risks of running this tool unlocked");
+
+            var now = Helper.GetApproximateInternetTime();
+            if (now == null || now == default || now > new DateTime(2026, 05, 16))
+            { 
+                MessageBox.Show("This version of the tool is no longer supported. Please update to the latest version.", "Tool Expired", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             Helper.LoadSettings();
 
